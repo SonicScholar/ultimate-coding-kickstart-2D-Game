@@ -1,5 +1,9 @@
 package com.sonicscholar.simpleBoardGame;
 
+/**
+ * AbstractPlayer provides storage for the name and marker
+ * of the Player interface.
+ */
 public abstract class AbstractPlayer implements Player {
 
     protected final String _name;
@@ -19,6 +23,4 @@ public abstract class AbstractPlayer implements Player {
         return _marker;
     }
 
-    @Override
-    public abstract GameAction requestAction();
 }

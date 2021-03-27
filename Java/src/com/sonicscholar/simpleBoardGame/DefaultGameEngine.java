@@ -3,8 +3,8 @@ package com.sonicscholar.simpleBoardGame;
 import java.util.List;
 
 /**
- * This is a simple com.sonicscholar.SimpleBoardGame.GameEngine that takes N players and makes each player
- * take a turn in order until the game is over as specified by the com.sonicscholar.SimpleBoardGame.GameChecker.
+ * This is a simple GameEngine that takes N players and makes each player
+ * take a turn in order until the game is over as specified by the GameChecker.
  */
 @SuppressWarnings("CanBeFinal")
 public class DefaultGameEngine implements GameEngine {
@@ -14,6 +14,12 @@ public class DefaultGameEngine implements GameEngine {
     private int _currentTurn = 0;
     GameChecker _gameChecker;
 
+    /**
+     * Creates a new DefaultGameEngine with a list of players, and a board
+     * to play on. User must set the GameChecker separately.
+     * @param players a list of players who will play the game
+     * @param board a board to play the game on
+     */
     public DefaultGameEngine(List<Player> players, Board board) {
         _players = players;
         _board = board;
