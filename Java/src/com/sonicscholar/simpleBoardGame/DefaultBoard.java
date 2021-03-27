@@ -1,3 +1,5 @@
+package com.sonicscholar.simpleBoardGame;
+
 public class DefaultBoard implements Board {
 
     private final int _width;
@@ -7,10 +9,10 @@ public class DefaultBoard implements Board {
     /**
      * Space character represents unoccupied
      */
-    static final char _defaultMarker = ' ';
+    public static final char _defaultMarker = ' ';
 
     /**
-     * Create a DefaultBoard object with specified width and height
+     * Create a com.sonicscholar.SimpleBoardGame.DefaultBoard object with specified width and height
      * @param width the width of the board
      * @param height the height of the board
      */

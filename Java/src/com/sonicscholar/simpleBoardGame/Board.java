@@ -1,3 +1,5 @@
+package com.sonicscholar.simpleBoardGame;
+
 /**
  * A simple 2 dimensional, width x height, rectangular board that uses
  * characters as markers that occupy space on the board.

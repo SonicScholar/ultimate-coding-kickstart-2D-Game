@@ -1,3 +1,5 @@
+import com.sonicscholar.simpleBoardGame.Board;
+import com.sonicscholar.simpleBoardGame.DefaultBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +10,7 @@ class DefaultBoardTest {
     private static final int defaultHeight = 4;
     /**
      * get a default 3 x 4 test board, where 3 is width, 4 is height
-     * @return a DefaultBoard object as a Board interface
+     * @return a com.sonicscholar.SimpleBoardGame.DefaultBoard object as a com.sonicscholar.SimpleBoardGame.Board interface
      */
     static Board getDefaultTestBoard() {
         return new DefaultBoard(defaultWidth, defaultHeight);

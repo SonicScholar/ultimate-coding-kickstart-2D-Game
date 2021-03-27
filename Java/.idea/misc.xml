@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <pattern value="GameChecker" method="getGameEngine" />
+    <pattern value="com.sonicscholar.SimpleBoardGame.DefaultGameEngine" method="getBoard" />
+    <pattern value="com.sonicscholar.SimpleBoardGame.DefaultGameEngine" />
+    <pattern value="com.sonicscholar.SimpleBoardGame.DefaultGameEngine" method="getPlayers" />
+    <pattern value="com.sonicscholar.SimpleBoardGame.DefaultGameEngine" method="playGame" />
+    <pattern value="com.sonicscholar.SimpleBoardGame.DefaultGameEngine" method="resetGame" />
+    <pattern value="com.sonicscholar.simpleBoardGame.DefaultGameEngine" />
+    <pattern value="com.sonicscholar.simpleBoardGame.DefaultGameEngine" method="getBoard" />
+    <pattern value="com.sonicscholar.simpleBoardGame.DefaultGameEngine" method="getPlayers" />
+    <pattern value="com.sonicscholar.simpleBoardGame.DefaultGameEngine" method="playGame" />
+    <pattern value="com.sonicscholar.simpleBoardGame.DefaultGameEngine" method="resetGame" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="adopt-openjdk-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
