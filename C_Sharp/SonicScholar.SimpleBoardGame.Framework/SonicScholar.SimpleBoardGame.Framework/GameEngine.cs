@@ -49,6 +49,8 @@ namespace SonicScholar.SimpleBoardGame.Framework
             {
                 DoTurn();
             } while (!_gameChecker.IsGameOver);
+            //draw the final state of the board
+            DrawBoard();
         }
 
         public IPlayer GetNextTurnPlayer()
@@ -78,6 +80,8 @@ namespace SonicScholar.SimpleBoardGame.Framework
 
         public void DoTurn()
         {
+            DrawBoard();
+
             //get the next player, and increment
             IPlayer player = GetNextTurnPlayer();
             _currentTurn++;
@@ -100,6 +104,12 @@ namespace SonicScholar.SimpleBoardGame.Framework
 
             //action is valid at this point
             Board.MarkPosition(action.Row, action.Column, action.Marker);
+        }
+
+        private void DrawBoard()
+        {
+            Console.Clear();
+            Console.WriteLine(Board.ToString());
         }
     }
 }

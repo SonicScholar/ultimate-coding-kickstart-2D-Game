@@ -107,5 +107,54 @@ namespace SonicScholar.SimpleBoardGame.Framework.Test
             Assert.False(board.IsEmpty(0, 0));
             Assert.False(board.IsEmpty(DefaultHeight - 1, DefaultWidth - 1));
         }
+
+        [Test]
+        public void Test1x1BoardToString()
+        {
+            Board board = new Board(1, 1);
+            string expected =
+                "===" + "\r\n" +
+                "| |" + "\r\n" +
+                "===" + "\r\n";
+
+            string actual = board.ToString();
+            Assert.AreEqual(expected, actual);
+
+            board.MarkPosition(0,0, 'X');
+            
+            expected =
+                "===" + "\r\n" +
+                "|X|" + "\r\n" +
+                "===" + "\r\n";
+            actual = board.ToString();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void Test2x2BoardToString()
+        {
+            Board board = new Board(2, 2);
+            string expected =
+                "=====" + "\r\n" +
+                "| | |" + "\r\n" +
+                "-----" + "\r\n" +
+                "| | |" + "\r\n" +
+                "=====" + "\r\n";
+
+            string actual = board.ToString();
+            Assert.AreEqual(expected, actual);
+
+            board.MarkPosition(0, 0, 'X');
+            board.MarkPosition(1,1, 'X');
+
+            expected =
+                "=====" + "\r\n" +
+                "|X| |" + "\r\n" +
+                "-----" + "\r\n" +
+                "| |X|" + "\r\n" +
+                "=====" + "\r\n";
+            actual = board.ToString();
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

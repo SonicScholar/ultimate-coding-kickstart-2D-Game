@@ -70,4 +70,73 @@ public class DefaultBoard implements Board {
     public char getMarkerAtPosition(int row, int col) {
         return _field[row][col];
     }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="c">The character to string together</param>
+    /// <returns>String of 'c' length Width*2+1</returns>
+
+    /**
+     * Helper method used by ToString() to get a string of
+     * characters that matches the board's ASCII representation
+     * width.
+     * @param c the character to string together
+     * @return String of 'c' of length 2*width+1
+     */
+    private String GetStringRowOfCharacters(char c) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 2 * _width + 1; i++) {
+            stringBuilder.append(c);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Helper method used to get a row of characters that represent
+     * the state of the board on a given row.
+     * @param row the row number of the board
+     * @return String representing this row
+     */
+    private String GetStringRowOfBoard(int row) {
+        StringBuilder stringBuilder = new StringBuilder();
+        //print all the columns in this row
+        for (int col = 0; col < _width; col++) {
+            char marker = getMarkerAtPosition(row, col);
+            stringBuilder.append("|" + marker);
+        }
+        //append closing |
+        stringBuilder.append("|");
+        return stringBuilder.toString();
+    }
+
+
+    /**
+     * Creates an ASCII representation of the board's state
+     * @return an ASCII representation of the board's state
+     */
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        //print top row
+        stringBuilder.append(GetStringRowOfCharacters('='));
+        stringBuilder.append("\r\n");
+
+        //print all the rows
+        for (int row = 0; row < _height; row++)
+        {
+            stringBuilder.append(GetStringRowOfBoard(row));
+            stringBuilder.append("\r\n");
+
+            //if it's the last row, print ===='s
+            //else print ----'s
+            stringBuilder.append(row == _height - 1
+                    ? GetStringRowOfCharacters('=')
+                    : GetStringRowOfCharacters('-'));
+            stringBuilder.append("\r\n");
+        }
+
+        return stringBuilder.toString();
+    }
 }

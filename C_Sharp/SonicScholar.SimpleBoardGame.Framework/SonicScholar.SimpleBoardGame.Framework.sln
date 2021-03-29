@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicScholar.SimpleBoardGam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicScholar.SimpleBoardGame.Framework.Test", "SonicScholar.SimpleBoardGame.Framework.Test\SonicScholar.SimpleBoardGame.Framework.Test.csproj", "{14E6531F-634C-4CE3-BEA3-B673926CAE77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumbGame", "DumbGame\DumbGame.csproj", "{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
