@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicScholar.SimpleBoardGame.Framework", "SonicScholar.SimpleBoardGame.Framework\SonicScholar.SimpleBoardGame.Framework.csproj", "{867D45AC-7100-4E6A-9802-09E5731A32F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicScholar.SimpleBoardGame.Framework.Test", "SonicScholar.SimpleBoardGame.Framework.Test\SonicScholar.SimpleBoardGame.Framework.Test.csproj", "{14E6531F-634C-4CE3-BEA3-B673926CAE77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{867D45AC-7100-4E6A-9802-09E5731A32F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867D45AC-7100-4E6A-9802-09E5731A32F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867D45AC-7100-4E6A-9802-09E5731A32F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867D45AC-7100-4E6A-9802-09E5731A32F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14E6531F-634C-4CE3-BEA3-B673926CAE77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12050FB0-F68B-4676-89DF-E9D4FC624C95}
+	EndGlobalSection
+EndGlobal
