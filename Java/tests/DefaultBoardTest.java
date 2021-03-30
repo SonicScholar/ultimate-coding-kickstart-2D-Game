@@ -102,4 +102,53 @@ class DefaultBoardTest {
         assertFalse(board.isEmpty(0,0));
         assertFalse(board.isEmpty(defaultHeight-1, defaultWidth-1));
     }
+
+    @Test
+    public void test1x1BoardToString()
+    {
+        Board board = new DefaultBoard(1, 1);
+        String expected =
+                "===" + "\r\n" +
+                "| |" + "\r\n" +
+                "===" + "\r\n";
+
+        String actual = board.toString();
+        assertEquals(expected, actual);
+
+        board.markPosition(0,0, 'X');
+
+        expected =
+                "===" + "\r\n" +
+                "|X|" + "\r\n" +
+                "===" + "\r\n";
+        actual = board.toString();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void test2x2BoardToString()
+    {
+        Board board = new DefaultBoard(2, 2);
+        String expected =
+                "=====" + "\r\n" +
+                "| | |" + "\r\n" +
+                "-----" + "\r\n" +
+                "| | |" + "\r\n" +
+                "=====" + "\r\n";
+
+        String actual = board.toString();
+        assertEquals(expected, actual);
+
+        board.markPosition(0, 0, 'X');
+        board.markPosition(1,1, 'X');
+
+        expected =
+                "=====" + "\r\n" +
+                "|X| |" + "\r\n" +
+                "-----" + "\r\n" +
+                "| |X|" + "\r\n" +
+                "=====" + "\r\n";
+        actual = board.toString();
+        assertEquals(expected, actual);
+    }
 }

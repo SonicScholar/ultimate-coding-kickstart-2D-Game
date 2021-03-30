@@ -57,6 +57,7 @@ public class DefaultGameEngine implements GameEngine {
         do {
             doTurn();
         }while(!_gameChecker.isGameOver());
+        drawBoard();
     }
 
     @Override
@@ -86,6 +87,8 @@ public class DefaultGameEngine implements GameEngine {
 
     @Override
     public void doTurn() {
+        drawBoard();
+
         //get the next player, and increment
         Player player = getNextTurnPlayer();
         _currentTurn++;
@@ -107,5 +110,14 @@ public class DefaultGameEngine implements GameEngine {
 
         //action is valid at this point
         _board.markPosition(action.getRow(), action.getColumn(), action.getMarker());
+    }
+
+    private void drawBoard(){
+        //clear the console
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        System.out.println(_board.toString());
     }
 }
