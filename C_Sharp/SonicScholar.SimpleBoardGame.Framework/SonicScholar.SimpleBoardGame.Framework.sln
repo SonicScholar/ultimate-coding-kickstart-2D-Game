@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SonicScholar.SimpleBoardGam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumbGame", "DumbGame\DumbGame.csproj", "{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureGame", "TreasureGame\TreasureGame.csproj", "{659D1539-DAD0-43DD-9866-5FBFC2478E2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureGame.Test", "TreasureGame.Test\TreasureGame.Test.csproj", "{E023D3A9-BCFC-4826-B5C1-DF7CE8236F95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{096EA7E7-B06D-4D74-AAE3-57F2DCFB57FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659D1539-DAD0-43DD-9866-5FBFC2478E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659D1539-DAD0-43DD-9866-5FBFC2478E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659D1539-DAD0-43DD-9866-5FBFC2478E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659D1539-DAD0-43DD-9866-5FBFC2478E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E023D3A9-BCFC-4826-B5C1-DF7CE8236F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E023D3A9-BCFC-4826-B5C1-DF7CE8236F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E023D3A9-BCFC-4826-B5C1-DF7CE8236F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E023D3A9-BCFC-4826-B5C1-DF7CE8236F95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
