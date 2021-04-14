@@ -85,12 +85,7 @@ public class DefaultBoard implements Board {
      * @return String of 'c' of length 2*width+1
      */
     private String GetStringRowOfCharacters(char c) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < 2 * _width + 1; i++) {
-            stringBuilder.append(c);
-        }
-
-        return stringBuilder.toString();
+        return String.valueOf(c).repeat(2 * _width + 1);
     }
 
     /**
@@ -104,7 +99,7 @@ public class DefaultBoard implements Board {
         //print all the columns in this row
         for (int col = 0; col < _width; col++) {
             char marker = getMarkerAtPosition(row, col);
-            stringBuilder.append("|" + marker);
+            stringBuilder.append("|").append(marker);
         }
         //append closing |
         stringBuilder.append("|");
@@ -138,5 +133,11 @@ public class DefaultBoard implements Board {
         }
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean isValidSpace(int row, int col) {
+        return row >= 0 && row < _height &&
+                col >=0 && col < _width;
     }
 }

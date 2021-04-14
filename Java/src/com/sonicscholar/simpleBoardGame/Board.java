@@ -59,4 +59,14 @@ public interface Board {
      * @return the char marker value
      */
     char getMarkerAtPosition(int row, int col);
+
+    /**
+     * Identifies whether the input position is a valid space on
+     * the board.
+     * @param row position row
+     * @param col position column
+     * @return true if the space exists on the board, false if the position
+     * is outside the boundary of the board's given dimensions.
+     */
+    boolean isValidSpace(int row, int col);
 }

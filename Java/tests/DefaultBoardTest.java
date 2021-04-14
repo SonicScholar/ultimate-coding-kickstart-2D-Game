@@ -151,4 +151,29 @@ class DefaultBoardTest {
         actual = board.toString();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testValidBoardSpaceAt00(){
+        Board board = new DefaultBoard(2,2);
+        assertTrue(board.isValidSpace(0,0));
+    }
+
+    @Test
+    public void testValidBoardSpaceAtEdges(){
+        Board board = new DefaultBoard(2,3);
+        assertTrue(board.isValidSpace(2,0));
+        assertTrue(board.isValidSpace(2,1));
+        assertTrue(board.isValidSpace(0,1));
+    }
+
+    @Test
+    public void testInvalidBoardSpaceAtNegatives(){
+        Board board = new DefaultBoard(2,3);
+        assertFalse(board.isValidSpace(-1,0));
+        assertFalse(board.isValidSpace(0,-1));
+        assertFalse(board.isValidSpace(-1,-1));
+        assertFalse(board.isValidSpace(0,2));
+        assertFalse(board.isValidSpace(3,0));
+        assertFalse(board.isValidSpace(3,2));
+    }
 }
