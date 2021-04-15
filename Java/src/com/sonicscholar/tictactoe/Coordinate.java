@@ -4,27 +4,17 @@ package com.sonicscholar.tictactoe;
  * This is a class to keep track of a row and column
  * for a board space
  */
-public class Coordinate {
-    private int _row;
-    private int _column;
+public class Coordinate extends Tuple<Integer, Integer>{
 
     public int getRow() {
-        return _row;
+        return this.value1;
     }
-    public void setRow(int row) {
-        this._row = row;
-    }
-
     public int getColumn() {
-        return _column;
+        return this.value2;
     }
-    public void setColumn(int column) {
-        this._column = column;
-    }
-
+    
     public Coordinate(int row, int column) {
-        _row = row;
-        _column = column;
+        super(row, column);
     }
 
 }

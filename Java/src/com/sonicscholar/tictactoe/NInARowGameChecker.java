@@ -4,15 +4,45 @@ import com.sonicscholar.simpleBoardGame.GameChecker;
 import com.sonicscholar.simpleBoardGame.GameEngine;
 import com.sonicscholar.simpleBoardGame.Player;
 
+import java.util.ArrayList;
+
 public class NInARowGameChecker implements GameChecker {
     GameEngine _gameEngine;
     /**
-     * You need 3 in a row to win
+     * You need N in a row to win
      */
     public final int _numToWin;
 
+    /**
+     * List of vectors (directions) to check when doing the N-in-a-row check.
+     * The 1st value in the tuple represents the change in the row.
+     * The 2nd value in the tuple represents the change in the column.
+     * For example, if _numToWin == 4, the vector is (1,0) and we're checking
+     * space (0,0)... the following 4 spaces on the board will be checked to
+     * see if the markers are identical.
+     *  1: (0,0) row 0, col 0
+     *  2: (1,0) row 1, col 0
+     *  3: (2,0) row 2, col 0
+     *  4: (3,0)) row 3, col 0
+     *
+     *  i.e.
+     *  vector of (1,0) checks a column for N consecutive markers
+     *  vector of (0,1) checks a row for N consecutive markers
+     *  vector of (1,1) checks diagonally down-right for N consecutive markers.
+     *  vector of (1,-1) checks diagonally down-left for N consecutive markers.
+     */
+    private final ArrayList<Tuple<Integer,Integer>> _directionalVectors;
+
     public NInARowGameChecker(int numToWin) {
         _numToWin = numToWin;
+
+        //initialize list of tuples for directions to check
+        //initial capacity 4 because vectors (right, down-right, down, down-left)
+        _directionalVectors = new ArrayList<>(4);
+        _directionalVectors.add(new Tuple<>(0, 1));  //right
+        _directionalVectors.add(new Tuple<>(1,1));   //down-right
+        _directionalVectors.add(new Tuple<>(1,0));   //down
+        _directionalVectors.add(new Tuple<>(1, -1)); //down-left
     }
 
     @Override
@@ -26,232 +56,70 @@ public class NInARowGameChecker implements GameChecker {
     }
 
     /**
-     * On any size board, check if there are 3 consecutive markers
-     * in a given row
-     * @return character that belongs to a string of 3 in a row, or
-     * a null '\0' character if no match
+     * Checks to see if a given space on the board is connected to N
+     * consecutive markers in the right, right-down, down, and down-left vectors.
+     * @param row the row of the first space to check
+     * @param col the column of the first space to check
+     * @return Character matching player marker if the current space is connected
+     * to N-in-a-row, null otherwise.
      */
-    public char check3InARow(){
+    private Character checkSpaceForNConsecutive(int row, int col) {
         var board = _gameEngine.getBoard();
-        //temp variable to hold the marker to test for 3 in a row
-        char testMarker = '\0';
 
-        //check each row on the board
-        for(int row=0; row < board.getHeight(); row++) {
+        //if the space we're checking isn't valid or is empty, it's
+        //obviously not connected to N-in-a-row in ANY vector
+        if(!board.isValidSpace(row, col) || board.isEmpty(row, col))
+            return null;
 
-            //check each column for N in a row until the column is greater than
-            // (board width) - (numToWin)
-            //e.g. Admittedly over achieving here, but if board is 4x4 and numToWin
-            //is 3 we would check columns [0][1][2] and also columns [1][2][3]
-            for(int col = 0; col <= board.getWidth() - _numToWin; col++){
+        //the marker on the space to check. N consecutive markers along
+        //the current vector have to match.
+        char testMarker = board.getMarkerAtPosition(row, col);
 
-                //check for `numToWin` in a row... this could be 3 for tictactoe,
-                //or 4 in the case of a game like Connect 4
-                for(int i = 0; i < _numToWin; i++){
-                    //if the current space is empty, break out
-                    if(board.isEmpty(row, col+i))
-                        break;
+        //check each directional vector
+        for (var vector : _directionalVectors) {
+            int rowDelta = vector.value1; //the amount to change the row by
+            int colDelta = vector.value2; //the amount to change the column by
 
-                    char currentMarker = board.getMarkerAtPosition(row, col + i);
+            //start at i=1 because we already checked the validity of the
+            //first space above.
+            for (int i = 1; i < _numToWin; i++) {
+                int rowToCheck = row + (i * rowDelta);
+                int columnToCheck = col + (i * colDelta);
 
-                    //if this is the first space we're testing, set the testMarker
-                    //to whatever the marker is on this space
-                    if(i==0) {
-                        testMarker = currentMarker;
-                        continue;
-                    }
-                    //if the current space we're testing doesn't match the test marker
-                    //break out of this loop entirely.
-                    if(currentMarker != testMarker)
-                        break;
+                if(!board.isValidSpace(rowToCheck, columnToCheck) ||
+                        board.isEmpty(rowToCheck, columnToCheck))
+                    break;
 
-                    //if we're on the last space to check, and it matches the test marker
-                    //that should mean we found N in a row!
-                    if(i == _numToWin -1)
-                        return testMarker;
-                }
+                char currentMarker = board.getMarkerAtPosition(rowToCheck, columnToCheck);
+
+                //this space + current vector does not have N in a row
+                //break out of this loop and check the next vector
+                if(testMarker != currentMarker)
+                    break;
+
+                //if we're on the last marker and it matches, then we found a winner!
+                if(i == _numToWin - 1)
+                    return testMarker;
             }
         }
-        return '\0';
+
+        //we checked everything and didn't find a match
+        return null;
     }
-
-    private char check3InAColumn() {
-        var board = _gameEngine.getBoard();
-        //temp variable to hold the marker to test for 3 in a row
-        char testMarker = '\0';
-
-        //check each column on the board
-        for(int col=0; col < board.getWidth(); col++) {
-
-            //check each row for N in a column until the row is greater than
-            // (board height) - (numToWin)
-            //e.g. Admittedly over achieving here, but if board is 4x4 and numToWin
-            //is 3 we would check rows [0][1][2] and also rows [1][2][3]
-            for(int row = 0; row <= board.getHeight() - _numToWin; row++){
-
-                //check for `numToWin` in a column... this could be 3 for tictactoe,
-                //or 4 in the case of a game like Connect 4
-                for(int i = 0; i < _numToWin; i++){
-                    //if the current space is empty, break out
-                    if(board.isEmpty(row +i, col))
-                        break;
-
-                    char currentMarker = board.getMarkerAtPosition(row+i, col);
-
-                    //if this is the first space we're testing, set the testMarker
-                    //to whatever the marker is on this space
-                    if(i==0) {
-                        testMarker = currentMarker;
-                        continue;
-                    }
-                    //if the current space we're testing doesn't match the test marker
-                    //break out of this loop entirely.
-                    if(currentMarker != testMarker)
-                        break;
-
-                    //if we're on the last space to check, and it matches the test marker
-                    //that should mean we found N in a column!
-                    if(i == _numToWin -1)
-                        return testMarker;
-                }
-            }
-        }
-        return '\0';
-    }
-
-    private char check3InADiagonal() {
-        //check diagonals that slope uphill and downhill directions
-        //lets say we start with row zero and check all the spaces to
-        //see if they even have `numToWin` in a diagonal either down
-        //and to the left, or down and to the right.
-
-        //e.g. for a 3x3 board, (0,0) would be a candidate for a diagonal
-        //because it has two more spaces down and to the right.
-        //(0,2) would be a candidate for a diagonal because it has two
-        //spaces down and to the left.
-
-        var board = _gameEngine.getBoard();
-        for (int row = 0; row < board.getHeight(); row++) {
-            for (int col = 0; col < board.getWidth(); col++) {
-                boolean isDiagonalCandidateLeft = isDiagonalCandidateLeft(row, col);
-                boolean isDiagonalCandidateRight = isDiagonalCandidateRight(row, col);
-
-                //if there aren't enough spaces down and to the right, or down and
-                //to the left, then checking this space to see if it's part of a
-                //N in a row doesn't make sense.
-                if(!isDiagonalCandidateLeft && !isDiagonalCandidateRight)
-                    continue;
-
-                //when we find a spot that does have at least N spaces down and to the
-                //left or down and to the right. check those spaces to see if all the
-                //markers match up.
-
-                char testMarker = '\0';
-                if(isDiagonalCandidateLeft){
-                    //check numToWinSpaces down and to the left
-                    for(int i = 0; i < _numToWin; i++){
-                        //if the current space is empty, break out
-                        if(board.isEmpty(row +i, col-i))
-                            break;
-
-                        char currentMarker = board.getMarkerAtPosition(row+i, col-i);
-
-                        //if this is the first space we're testing, set the testMarker
-                        //to whatever the marker is on this space
-                        if(i==0) {
-                            testMarker = currentMarker;
-                            continue;
-                        }
-                        //if the current space we're testing doesn't match the test marker
-                        //break out of this loop entirely.
-                        if(currentMarker != testMarker)
-                            break;
-
-                        //if we're on the last space to check, and it matches the test marker
-                        //that should mean we found N in a column!
-                        if(i == _numToWin -1)
-                            return testMarker;
-                    }
-                } else //noinspection ConstantConditions
-                    if(isDiagonalCandidateRight){
-                    for(int i = 0; i < _numToWin; i++){
-                        //if the current space is empty, break out
-                        if(board.isEmpty(row +i, col+i))
-                            break;
-
-                        char currentMarker = board.getMarkerAtPosition(row+i, col+i);
-
-                        //if this is the first space we're testing, set the testMarker
-                        //to whatever the marker is on this space
-                        if(i==0) {
-                            testMarker = currentMarker;
-                            continue;
-                        }
-                        //if the current space we're testing doesn't match the test marker
-                        //break out of this loop entirely.
-                        if(currentMarker != testMarker)
-                            break;
-
-                        //if we're on the last space to check, and it matches the test marker
-                        //that should mean we found N in a column!
-                        if(i == _numToWin -1)
-                            return testMarker;
-                    }
-                }
-            }
-        }
-        return '\0';
-    }
-
-    /**
-     * Checks to see if a space has `numToWin` spaces down and to the left
-     * @param row input row position
-     * @param col input column position
-     * @return true if this space has `numToWin` spaces down and to the left
-     */
-    private boolean isDiagonalCandidateLeft(int row, int col) {
-        //figure out where the end of the diagonal to test is, then check
-        //to see if it's a valid board space.
-
-        row += (_numToWin -1); //down
-        col -= (_numToWin -1); //to the left
-
-        var board = _gameEngine.getBoard();
-        return board.isValidSpace(row, col);
-    }
-
-    /**
-     * Checks to see if a space has `numToWin` spaces down and to the left
-     * @param row input row position
-     * @param col input column position
-     * @return true if this space has `numToWin` spaces down and to the left
-     */
-    private boolean isDiagonalCandidateRight(int row, int col) {
-        //figure out where the end of the diagonal to test is, then check
-        //to see if it's a valid board space.
-
-        row += (_numToWin -1); //down
-        col += (_numToWin -1); //to the right
-
-        var board = _gameEngine.getBoard();
-        return board.isValidSpace(row, col);
-    }
-
 
     @Override
     public boolean isGameOver() {
+
+        //the game is over if any of the spaces on the board are part of
+        //n-in-a-row
         var board = _gameEngine.getBoard();
-        if(check3InARow() != '\0')
-            return true;
-
-        //check all the columns
-        if(check3InAColumn() != '\0')
-            return true;
-
-        //check all the diagonals
-        if(check3InADiagonal() != '\0')
-            return true;
-
+        for (int row = 0; row < board.getHeight(); row++) {
+            for (int col = 0; col < board.getWidth(); col++) {
+                if(checkSpaceForNConsecutive(row, col) != null)
+                    return true;
+            }
+        }
+        //...or if all the spaces are filled out
         return allSpacesOccupied();
     }
 
@@ -269,21 +137,23 @@ public class NInARowGameChecker implements GameChecker {
 
     @Override
     public Player getWinner() {
-        char marker;
-        marker = check3InARow();
-        if(marker != '\0')
-            return getPlayer(marker);
 
-        marker = check3InAColumn();
-        if(marker != '\0')
-            return getPlayer(marker);
-
-        marker = check3InADiagonal();
-        if(marker != '\0')
-            return getPlayer(marker);
+        var board = _gameEngine.getBoard();
+        for (int row = 0; row < board.getHeight(); row++) {
+            for (int col = 0; col < board.getWidth(); col++) {
+                Character marker = checkSpaceForNConsecutive(row, col);
+                if(marker != null)
+                    return getPlayer(marker);
+            }
+        }
         return null;
     }
 
+    /**
+     * helper function to find the player that matches the character marker
+     * @param marker char that represents a player's marker
+     * @return first player object from the game engine with a matching marker
+     */
     private Player getPlayer(char marker) {
         for (var player: _gameEngine.getPlayers()) {
             if(player.getMarker() == marker)
