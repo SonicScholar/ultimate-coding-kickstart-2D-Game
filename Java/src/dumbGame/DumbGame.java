@@ -5,12 +5,11 @@ import com.sonicscholar.simpleBoardGame.DefaultGameEngine;
 import com.sonicscholar.simpleBoardGame.GameEngine;
 import com.sonicscholar.simpleBoardGame.Player;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DumbGame {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         DumbGamePlayer player1 = new DumbGamePlayer("Collin", 'X');
         DumbGamePlayer player2 = new DumbGamePlayer("Jim", 'O');
         ArrayList<Player> players = new ArrayList<>();

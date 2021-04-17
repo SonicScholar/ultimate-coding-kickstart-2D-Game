@@ -52,5 +52,15 @@
         /// <param name="column">The column value of the position to get</param>
         /// <returns>the char marker value</returns>
         char GetMarkerAtPosition(int row, int column);
+
+        /// <summary>
+        /// Identifies whether the input position is a valid space on
+        /// the board.
+        /// </summary>
+        /// <param name="row">position row</param>
+        /// <param name="col">position column</param>
+        /// <returns>true if the space exists on the board, false if the position
+        /// is outside the boundary of the board's given dimensions.</returns>
+        bool IsValidSpace(int row, int col);
     }
 }

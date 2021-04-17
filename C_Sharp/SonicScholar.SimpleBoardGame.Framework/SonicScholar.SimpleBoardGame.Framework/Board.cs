@@ -126,5 +126,10 @@ namespace SonicScholar.SimpleBoardGame.Framework
 
             return stringBuilder.ToString();
         }
+        public bool IsValidSpace(int row, int col)
+        {
+            return row >= 0 && row < Height &&
+            col >= 0 && col < Width;
+        }
     }
 }
